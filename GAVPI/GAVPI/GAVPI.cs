@@ -69,7 +69,7 @@ namespace GAVPI
 
         //  We maintain a system tray icon and context menu...
         
-        private static NotifyIcon sysTrayIcon;
+        public static NotifyIcon sysTrayIcon;
         private static ContextMenu sysTrayMenu;
 
         //  Our system tray context menu items are declared for convenience.  If we add or remove items at some

@@ -11,8 +11,10 @@ using System.Windows.Forms;
 
 namespace GAVPI
 {
-    public partial class frmGAVPI : Form
-    {
+    public partial class frmGAVPI : Form {
+        
+        // have we shown the closing reminder yet? If true, don't show it again.
+        private bool _hasShownTip = false;
 
         public frmGAVPI()
         {
@@ -50,20 +52,23 @@ namespace GAVPI
         //  changes.
         //
 
-        private void frmGAVPI_FormClosing( object sender, FormClosingEventArgs e )
-        {
-
-
+        private void frmGAVPI_FormClosing( object sender, FormClosingEventArgs e ) {
+            if (!_hasShownTip) {
+                GAVPI.sysTrayIcon.BalloonTipTitle = "GAVPI is still running.";
+                GAVPI.sysTrayIcon.BalloonTipText =
+                    "The GAVPI application is still listening in the background and can be accessed from the system tray.";
+                GAVPI.sysTrayIcon.ShowBalloonTip(5000);
+            }
         }  //  private void frmGAVPI_FormClosing
 
-		//
-		//  loadToolStripMenuItem_Click()
-		//
-		//  A handler for the Load Profile menu item in the File menu, allowing the user to select an existing
+        //
+        //  loadToolStripMenuItem_Click()
+        //
+        //  A handler for the Load Profile menu item in the File menu, allowing the user to select an existing
         //  Binding Definition Profile.  The Binding Definition Profile may be edited and saved within frmProfile.
-		//
-		
-		private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        //
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
             //  If we're Listening for voice commands, stop Listening since we may be about to open another
